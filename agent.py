@@ -188,6 +188,7 @@ def collect(content: Any) -> list[dict[str, Any]]:
 
 def extract_and_load() -> int:
 	values = required_environment()
+	LOG.info("Connecting to vCenter %s", values["VCENTER_HOST"])
 	context = ssl._create_unverified_context() if os.getenv("VCENTER_INSECURE", "false").lower() in {"1", "true", "yes"} else ssl.create_default_context()
 	service_instance = SmartConnect(host=values["VCENTER_HOST"], user=values["VCENTER_USER"], pwd=values["VCENTER_PASSWORD"], sslContext=context)
 	atexit.register(Disconnect, service_instance)
