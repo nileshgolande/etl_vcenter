@@ -22,6 +22,12 @@ Validate the configuration without making a vCenter or PostgreSQL connection:
 python agent.py --check-config
 ```
 
+Display the collector version:
+
+```powershell
+python agent.py --version
+```
+
 The PostgreSQL schema is created automatically. Every run creates an inventory snapshot in `vcenter_inventory`, so historical collections remain queryable. Use `VCENTER_INSECURE=true` only for a controlled lab vCenter with an untrusted certificate.
 
 The vCenter account should have read-only inventory, datastore, host configuration, and network privileges.
