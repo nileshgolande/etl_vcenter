@@ -194,6 +194,7 @@ def extract_and_load() -> int:
 	atexit.register(Disconnect, service_instance)
 	started = datetime.now(timezone.utc)
 	objects = collect(service_instance.RetrieveContent())
+	LOG.info("Collected %d vCenter objects", len(objects))
 	finished = datetime.now(timezone.utc)
 	with psycopg.connect(values["POSTGRES_DSN"]) as connection:
 		with connection.cursor() as cursor:
