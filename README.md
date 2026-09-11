@@ -16,6 +16,12 @@ Set the variables in `.env.example` in the shell (rename it to `.env` only if us
 python agent.py
 ```
 
+Validate the configuration without making a vCenter or PostgreSQL connection:
+
+```powershell
+python agent.py --check-config
+```
+
 The PostgreSQL schema is created automatically. Every run creates an inventory snapshot in `vcenter_inventory`, so historical collections remain queryable. Use `VCENTER_INSECURE=true` only for a controlled lab vCenter with an untrusted certificate.
 
 The vCenter account should have read-only inventory, datastore, host configuration, and network privileges.

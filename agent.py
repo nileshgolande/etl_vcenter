@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import atexit
+import argparse
 import logging
 import os
 import ssl
@@ -47,6 +48,23 @@ def required_environment() -> dict[str, str]:
 	if missing:
 		raise ValueError(f"Missing required environment variables: {', '.join(missing)}")
 	return values
+
+
+def check_config() -> None:
+	values = required_environment()
+	print(f"vCenter host: {values['VCENTER_HOST']}")
+	print("vCenter credentials: configured")
+	print("PostgreSQL DSN: configured")
+
+
+def parse_args() -> argparse.Namespace:
+	parser = argparse.ArgumentParser(description="Extract vCenter inventory into PostgreSQL")
+	parser.add_argument(
+		"--check-config",
+		action="store_true",
+		help="validate required environment variables without connecting",
+	)
+	return parser.parse_args()
 
 
 def json_value(value: Any) -> Any:
@@ -187,4 +205,7 @@ def extract_and_load() -> int:
 
 if __name__ == "__main__":
 	logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"), format="%(asctime)s %(levelname)s %(message)s")
-	extract_and_load()
+	if parse_args().check_config:
+		check_config()
+	else:
+		extract_and_load()
