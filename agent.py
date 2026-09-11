@@ -56,6 +56,7 @@ def check_config() -> None:
 	print(f"vCenter host: {values['VCENTER_HOST']}")
 	print("vCenter credentials: configured")
 	print("PostgreSQL DSN: configured")
+	print(f"Insecure TLS: {os.getenv('VCENTER_INSECURE', 'false').lower() in {'1', 'true', 'yes'}}")
 
 
 def parse_args() -> argparse.Namespace:
