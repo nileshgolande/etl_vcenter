@@ -16,6 +16,7 @@ from pyVim.connect import Disconnect, SmartConnect
 from pyVmomi import vim
 
 LOG = logging.getLogger("vcenter_etl")
+VERSION = "0.1.1"
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS vcenter_inventory (
@@ -59,6 +60,7 @@ def check_config() -> None:
 
 def parse_args() -> argparse.Namespace:
 	parser = argparse.ArgumentParser(description="Extract vCenter inventory into PostgreSQL")
+	parser.add_argument("--version", action="version", version=f"vcenter-etl {VERSION}")
 	parser.add_argument(
 		"--check-config",
 		action="store_true",
